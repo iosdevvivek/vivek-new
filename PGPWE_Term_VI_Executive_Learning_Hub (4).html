@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGPWE Term VI Executive Learning Hub</title>
+<style>
+:root{
+  --bg:#f5f7fb;--panel:#fff;--panel2:#eef2f8;--text:#172033;--muted:#667085;
+  --line:#dfe4ec;--accent:#5b5ce2;--accent2:#0ea5a4;--gold:#c58a2b;
+  --shadow:0 14px 40px rgba(20,30,55,.08);--radius:18px
+}
+[data-theme="dark"]{
+ --bg:#0b1020;--panel:#121a2d;--panel2:#182238;--text:#edf2ff;--muted:#9ca8c0;
+ --line:#27324a;--shadow:0 16px 44px rgba(0,0,0,.28)
+}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.app{display:flex;min-height:100vh}.sidebar{width:270px;background:var(--panel);border-right:1px solid var(--line);padding:24px 16px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;gap:12px;align-items:center;padding:4px 10px 24px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#6366f1,#14b8a6);display:grid;place-items:center;color:white;font-weight:800}.brand b{display:block}.brand span{font-size:12px;color:var(--muted)}
+.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;color:var(--muted);padding:12px;border-radius:12px;text-align:left}.nav button:hover,.nav button.active{background:var(--panel2);color:var(--text);font-weight:700}
+.sidebar .mini{margin-top:25px;padding:15px;border:1px solid var(--line);border-radius:15px;background:var(--panel2)}
+.main{flex:1;min-width:0}.topbar{height:76px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:5}
+.search{display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px 12px;width:min(460px,55vw)}.search input{border:0;background:transparent;outline:0;color:var(--text);width:100%}
+.actions{display:flex;gap:8px}.iconbtn,.primary,.ghost{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:9px 12px;border-radius:11px}.primary{background:var(--accent);border-color:var(--accent);color:#fff}.ghost:hover,.iconbtn:hover{background:var(--panel2)}
+.content{padding:30px;max-width:1500px;margin:auto}.hero{background:linear-gradient(135deg,#171d36,#2c3260 58%,#0f766e);color:#fff;border-radius:24px;padding:34px;box-shadow:var(--shadow);display:grid;grid-template-columns:1.6fr .8fr;gap:24px}.hero h1{font-size:34px;margin:0 0 10px}.hero p{color:#dce3ff;max-width:760px}.hero .statbox{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:20px}.hero .big{font-size:44px;font-weight:800}
+.section{margin-top:28px}.sectionhead{display:flex;justify-content:space-between;align-items:end;margin-bottom:14px}.sectionhead h2{margin:0}.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}.card h3{margin:8px 0}.subject{min-height:220px;display:flex;flex-direction:column}.subject .tag{font-size:12px;font-weight:700;color:var(--accent)}.subject .icon{font-size:28px}.subject .bar{margin-top:auto}.bar{height:7px;background:var(--panel2);border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:20px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric strong{font-size:28px}.metric span{font-size:12px;color:var(--muted)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:7px 10px;border-radius:999px;background:var(--panel2);font-size:12px;color:var(--muted)}
+.page{display:none}.page.active{display:block}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:9px 13px;border-radius:10px}.tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.topic{border:1px solid var(--line);border-radius:14px;margin:9px 0;overflow:hidden}.topic button{width:100%;border:0;background:var(--panel);color:var(--text);padding:15px;text-align:left;display:flex;justify-content:space-between}.topic .body{display:none;padding:0 16px 16px;color:var(--muted);background:var(--panel)}.topic.open .body{display:block}
+.kpi{font-size:13px;color:var(--muted)}.formula{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--panel2);padding:12px;border-radius:10px;margin:8px 0}
+.resource{display:flex;justify-content:space-between;gap:15px;align-items:center}.resource a{color:var(--accent);font-weight:700}
+.question{border:1px solid var(--line);border-radius:15px;padding:17px;margin-bottom:12px}.answer{display:none;margin-top:12px;padding:12px;border-left:3px solid var(--accent);background:var(--panel2);border-radius:8px}.answer.show{display:block}
+.timer{font-size:32px;font-weight:800}.inputrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.inputrow input{padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text)}
+.detail-outline{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detail-topic{border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden;margin-bottom:10px}.detail-topic-head{display:flex;align-items:center;gap:12px;padding:16px}.detail-topic-head .num{width:34px;height:34px;border-radius:10px;background:var(--panel2);display:grid;place-items:center;font-weight:800;color:var(--accent)}.detail-topic-head h3{margin:0}.detail-topic-body{padding:0 18px 18px;color:var(--muted);border-top:1px solid var(--line)}.qa-card{border:1px solid var(--line);border-radius:15px;padding:18px;background:var(--panel);margin-bottom:12px}.qa-card .q{font-size:16px;font-weight:750}.answer-toggle{margin-top:12px}.case-detail{border:1px solid var(--line);border-radius:16px;padding:20px;background:var(--panel);margin-bottom:14px}.case-detail summary{cursor:pointer;font-weight:750}.formula-box{background:var(--panel2);border:1px dashed var(--line);border-radius:12px;padding:14px;margin:10px 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}@media(max-width:760px){.detail-outline{grid-template-columns:1fr}}
+
+select,textarea{font:inherit}select{padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text)}
+.flashcard{min-height:190px;perspective:900px;cursor:pointer}.flash-inner{height:100%;min-height:190px;position:relative;transition:transform .5s;transform-style:preserve-3d}.flashcard.flipped .flash-inner{transform:rotateY(180deg)}.flash-front,.flash-back{position:absolute;inset:0;backface-visibility:hidden;border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:24px;display:flex;flex-direction:column;justify-content:center}.flash-back{transform:rotateY(180deg);background:var(--panel2)}
+.toast{position:fixed;right:20px;bottom:20px;background:#111827;color:#fff;padding:13px 17px;border-radius:12px;display:none;z-index:20}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.sidebar{width:220px}}
+@media(max-width:760px){.sidebar{display:none}.content{padding:18px}.topbar{padding:0 15px}.search{width:58%}.grid,.grid2,.grid3{grid-template-columns:1fr}.inputrow{grid-template-columns:1fr}.hero h1{font-size:27px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">VI</div><div><b>PGPWE Term VI</b><span>Executive Learning Hub</span></div></div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard">⌂ Dashboard</button>
+    <button data-page="change">↗ Change & Transformation</button>
+    <button data-page="innovation">◈ Technology Innovation</button>
+    <button data-page="ma">◎ M&A Strategy</button>
+    <button data-page="finance">₹ Structured & Project Finance</button>
+    <button data-page="exam">▣ Exam Preparation</button>
+    <button data-page="caseLab">🧠 Case Lab</button>
+    <button data-page="financeLab">🧮 Finance Lab</button>
+    <button data-page="questionBank">🎯 Question Bank</button>
+    <button data-page="flashcards">🃏 Flashcards</button>
+    <button data-page="aiTutor">🤖 MBA Tutor</button>
+    <button data-page="performance">📊 My Performance</button>
+    <button data-page="workplace">💼 Workplace Application</button>
+    <button data-page="frameworks">◇ Executive Frameworks</button>
+    <button data-page="resources">↗ Learning Resources</button>
+  </nav>
+  <div class="mini"><b>Daily 15-minute challenge</b><p class="muted">Pick one concept, solve one question, and apply it to a real workplace situation.</p><button class="primary" onclick="dailyChallenge()">Start challenge</button></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div class="search">⌕ <input id="search" placeholder="Search concepts, cases, formulas, questions..." oninput="globalSearch()"></div>
+  <div class="actions"><button class="iconbtn" onclick="toggleTheme()">☾</button><button class="iconbtn" onclick="resetProgress()">↻ Reset</button></div>
+</header>
+
+<div class="content">
+<section id="dashboard" class="page active">
+  <div class="hero">
+    <div><div class="chips"><span class="chip">Executive MBA</span><span class="chip">Term VI</span><span class="chip">Exam + Application</span></div>
+      <h1>Think like an executive. Study like an MBA.</h1>
+      <p>A single workspace for concepts, cases, numerical practice, frameworks, revision and workplace application across your four Term VI subjects.</p>
+      <button class="primary" onclick="showPage('exam')">Enter Exam Center →</button>
+    </div>
+    <div class="statbox"><div class="muted">Overall learning progress</div><div class="big" id="overall">0%</div><div class="bar"><i id="overallbar" style="width:0%"></i></div><p>Complete topics and practice questions to update your progress.</p></div>
+  </div>
+
+  <div class="section"><div class="metrics">
+    <div class="card metric"><strong id="mTopics">0</strong><span>Topics completed</span></div>
+    <div class="card metric"><strong id="mCases">0</strong><span>Cases completed</span></div>
+    <div class="card metric"><strong id="mQ">0</strong><span>Questions attempted</span></div>
+    <div class="card metric"><strong id="mP">0</strong><span>Problems solved</span></div>
+  </div></div>
+
+  <div class="section"><div class="sectionhead"><h2>Four subject command center</h2><span class="muted">Click any card</span></div>
+  <div class="grid">
+    <div class="card subject"><div class="icon">↗</div><span class="tag">01 · TRANSFORMATION</span><h3>Management of Change & Transformation</h3><p class="muted">Change models, culture, leadership, transformation execution and resistance.</p><div class="bar"><i id="bar-change"></i></div><button class="ghost" onclick="openSubjectDetail('change')">Open subject →</button></div>
+    <div class="card subject"><div class="icon">◈</div><span class="tag">02 · INNOVATION</span><h3>Technology Innovation & Strategy</h3><p class="muted">Technology S-curves, platform strategy, disruption, ecosystems and innovation portfolios.</p><div class="bar"><i id="bar-innovation"></i></div><button class="ghost" onclick="openSubjectDetail('innovation')">Open subject →</button></div>
+    <div class="card subject"><div class="icon">◎</div><span class="tag">03 · M&A</span><h3>Merger & Acquisition Strategy</h3><p class="muted">Strategic rationale, valuation, due diligence, synergies and integration.</p><div class="bar"><i id="bar-ma"></i></div><button class="ghost" onclick="openSubjectDetail('ma')">Open subject →</button></div>
+    <div class="card subject"><div class="icon">₹</div><span class="tag">04 · FINANCE</span><h3>Structured & Project Finance</h3><p class="muted">Cash flows, NPV, IRR, WACC, SPVs, debt sizing, DSCR and risk allocation.</p><div class="bar"><i id="bar-finance"></i></div><button class="ghost" onclick="openSubjectDetail('finance')">Open subject →</button></div>
+  </div></div>
+
+  <div class="section grid2">
+    <div class="card"><div class="sectionhead"><h2>Continue learning</h2></div><div id="continueList"></div></div>
+    <div class="card"><div class="sectionhead"><h2>Quick executive revision</h2></div><div class="chips">
+      <button class="chip" onclick="showPage('frameworks')">Kotter 8 Steps</button><button class="chip" onclick="showPage('frameworks')">Disruption</button><button class="chip" onclick="showPage('frameworks')">M&A Synergy</button><button class="chip" onclick="showPage('finance')">DSCR</button><button class="chip" onclick="showPage('finance')">NPV / IRR</button><button class="chip" onclick="showPage('innovation')">S-Curve</button>
+    </div></div>
+  </div>
+<div class="section grid3">
+<div class="card"><span class="chip">TODAY</span><h3>15-minute executive challenge</h3><p class="muted">One question → one framework → one workplace application.</p><button class="primary" onclick="dailyChallenge()">Start challenge</button></div>
+<div class="card"><span class="chip">WEAK AREAS</span><h3>Smart revision queue</h3><p class="muted" id="weakAreas">Complete a few topics to generate your priority revision list.</p><button class="ghost" onclick="showPage('performance')">View analytics →</button></div>
+<div class="card"><span class="chip">LAST 24 HOURS</span><h3>Exam mode</h3><p class="muted">Rapid revision, formulas, top questions and common mistakes.</p><button class="primary" onclick="showPage('exam')">Enter exam center →</button></div>
+</div>
+
+</section>
+
+<!-- SUBJECT TEMPLATE PAGES -->
+<section id="change" class="page">
+  <div class="hero"><div><span class="chip">01 · Management</span><h1>Management of Change & Transformation</h1><p>Move from “change as a project” to transformation as an executive capability.</p></div><div class="statbox"><div class="timer" id="changePct">0%</div><span>subject progress</span></div></div>
+  <div class="tabs" data-tabs="change"><button class="tab active" onclick="subjectTab('change','syllabus',this)">Syllabus</button><button class="tab" onclick="subjectTab('change','concepts',this)">Concept Library</button><button class="tab" onclick="subjectTab('change','cases',this)">Cases</button><button class="tab" onclick="subjectTab('change','practice',this)">Practice</button></div>
+  <div id="change-syllabus" class="subjecttab"></div><div id="change-concepts" class="subjecttab" style="display:none"></div><div id="change-cases" class="subjecttab" style="display:none"></div><div id="change-practice" class="subjecttab" style="display:none"></div>
+</section>
+
+<section id="innovation" class="page">
+  <div class="hero"><div><span class="chip">02 · Strategy</span><h1>Technology Innovation & Strategy</h1><p>Connect technology choices to competitive advantage, business models and innovation economics.</p></div><div class="statbox"><div class="timer" id="innovationPct">0%</div><span>subject progress</span></div></div>
+  <div class="tabs"><button class="tab active" onclick="subjectTab('innovation','syllabus',this)">Syllabus</button><button class="tab" onclick="subjectTab('innovation','concepts',this)">Concept Library</button><button class="tab" onclick="subjectTab('innovation','cases',this)">Cases</button><button class="tab" onclick="subjectTab('innovation','practice',this)">Practice</button></div>
+  <div id="innovation-syllabus" class="subjecttab"></div><div id="innovation-concepts" class="subjecttab" style="display:none"></div><div id="innovation-cases" class="subjecttab" style="display:none"></div><div id="innovation-practice" class="subjecttab" style="display:none"></div>
+</section>
+
+<section id="ma" class="page">
+  <div class="hero"><div><span class="chip">03 · Corporate Strategy</span><h1>Merger & Acquisition Strategy</h1><p>Analyse why deals happen, whether value is created, how transactions are valued and how integration captures it.</p></div><div class="statbox"><div class="timer" id="maPct">0%</div><span>subject progress</span></div></div>
+  <div class="tabs"><button class="tab active" onclick="subjectTab('ma','syllabus',this)">Syllabus</button><button class="tab" onclick="subjectTab('ma','concepts',this)">Concept Library</button><button class="tab" onclick="subjectTab('ma','cases',this)">Cases</button><button class="tab" onclick="subjectTab('ma','practice',this)">Practice</button></div>
+  <div id="ma-syllabus" class="subjecttab"></div><div id="ma-concepts" class="subjecttab" style="display:none"></div><div id="ma-cases" class="subjecttab" style="display:none"></div><div id="ma-practice" class="subjecttab" style="display:none"></div>
+</section>
+
+<section id="finance" class="page">
+  <div class="hero"><div><span class="chip">04 · Finance</span><h1>Structured & Project Finance</h1><p>Build the financial intuition and calculation discipline needed to assess complex projects and financing structures.</p></div><div class="statbox"><div class="timer" id="financePct">0%</div><span>subject progress</span></div></div>
+  <div class="tabs"><button class="tab active" onclick="subjectTab('finance','syllabus',this)">Syllabus</button><button class="tab" onclick="subjectTab('finance','concepts',this)">Concept Library</button><button class="tab" onclick="subjectTab('finance','cases',this)">Cases</button><button class="tab" onclick="subjectTab('finance','practice',this)">Problem Solver</button></div>
+  <div id="finance-syllabus" class="subjecttab"></div><div id="finance-concepts" class="subjecttab" style="display:none"></div><div id="finance-cases" class="subjecttab" style="display:none"></div><div id="finance-practice" class="subjecttab" style="display:none"></div>
+</section>
+
+<section id="subjectDetail" class="page">
+<div class="hero"><div><span class="chip" id="detailTag">TERM VI</span><h1 id="detailTitle">Subject Detail</h1><p id="detailIntro">Detailed syllabus, topics, questions and answers.</p><button class="ghost" onclick="showPage('dashboard')">← Back to Dashboard</button></div><div class="statbox"><div class="timer" id="detailProgress">0%</div><span>subject progress</span><div class="bar" style="margin-top:12px"><i id="detailProgressBar" style="width:0%"></i></div></div></div>
+<div class="tabs" id="detailTabs"><button class="tab active" onclick="detailTab('syllabus',this)">Syllabus</button><button class="tab" onclick="detailTab('topics',this)">Topics & Concepts</button><button class="tab" onclick="detailTab('questions',this)">Questions & Answers</button><button class="tab" onclick="detailTab('cases',this)">Case Studies</button><button class="tab" onclick="detailTab('revision',this)">Quick Revision</button></div>
+<div id="detail-syllabus" class="detailtab"></div><div id="detail-topics" class="detailtab" style="display:none"></div><div id="detail-questions" class="detailtab" style="display:none"></div><div id="detail-cases" class="detailtab" style="display:none"></div><div id="detail-revision" class="detailtab" style="display:none"></div></section>
+
+<section id="caseLab" class="page">
+ <div class="hero"><div><span class="chip">CASE LAB</span><h1>Executive Case Analysis Lab</h1><p>Practice the IIM case-solving method: diagnose → analyse → quantify → decide → implement.</p></div><div class="statbox"><div class="big" id="caseScore">0</div><span>cases completed</span></div></div>
+ <div class="section grid2" id="caseLabGrid"></div>
+</section>
+<section id="financeLab" class="page">
+ <div class="hero"><div><span class="chip">FINANCE LAB</span><h1>Project Finance Calculator</h1><p>Use a simple interactive model to practise NPV, IRR, WACC and DSCR thinking.</p></div><div class="statbox"><div class="big">₹</div><span>calculation practice</span></div></div>
+ <div class="section grid2">
+  <div class="card"><h2>NPV / IRR</h2><div class="inputrow"><input id="fcf0" type="number" placeholder="Initial investment" value="1000"><input id="fcf1" type="number" placeholder="Year 1 CF" value="300"><input id="fcf2" type="number" placeholder="Year 2 CF" value="400"></div><div class="inputrow" style="margin-top:10px"><input id="fcf3" type="number" placeholder="Year 3 CF" value="500"><input id="disc" type="number" placeholder="Discount %" value="10"><input id="taxdummy" type="number" placeholder="Optional" value="0"></div><button class="primary" style="margin-top:12px" onclick="calcNPV()">Calculate</button><div id="npvResult" class="formula-box">Enter values and calculate.</div></div>
+  <div class="card"><h2>DSCR</h2><div class="inputrow"><input id="cfads" type="number" placeholder="CFADS" value="500"><input id="debtservice" type="number" placeholder="Debt service" value="350"><input id="targetdscr" type="number" placeholder="Target DSCR" value="1.3"></div><button class="primary" style="margin-top:12px" onclick="calcDSCR()">Calculate</button><div id="dscrResult" class="formula-box">DSCR = CFADS / Debt Service</div></div>
+  <div class="card"><h2>WACC</h2><div class="inputrow"><input id="eq" type="number" placeholder="Equity %" value="60"><input id="debt" type="number" placeholder="Debt %" value="40"><input id="ke" type="number" placeholder="Cost equity %" value="14"></div><div class="inputrow" style="margin-top:10px"><input id="kd" type="number" placeholder="Cost debt %" value="8"><input id="tax" type="number" placeholder="Tax %" value="25"><input id="waccx" type="number" placeholder="Optional" value="0"></div><button class="primary" style="margin-top:12px" onclick="calcWACC()">Calculate</button><div id="waccResult" class="formula-box">WACC = E/V·Ke + D/V·Kd·(1−T)</div></div>
+  <div class="card"><h2>Finance exam checklist</h2><div class="chips"><span class="chip">Cash-flow timing</span><span class="chip">Discount rate</span><span class="chip">NPV first</span><span class="chip">DSCR</span><span class="chip">Sensitivity</span><span class="chip">Risk allocation</span></div></div>
+ </div>
+</section>
+<section id="questionBank" class="page">
+ <div class="hero"><div><span class="chip">QUESTION BANK</span><h1>Practice Engine</h1><p>Filter by subject and difficulty. Attempt first; reveal the model answer only after you commit.</p></div><div class="statbox"><div class="big" id="bankCount">0</div><span>questions available</span></div></div>
+ <div class="section card"><div class="inputrow"><select id="qbSubject" onchange="renderQuestionBank()"><option value="all">All subjects</option><option value="change">Change</option><option value="innovation">Innovation</option><option value="ma">M&A</option><option value="finance">Finance</option></select><select id="qbDifficulty" onchange="renderQuestionBank()"><option value="all">All difficulty</option><option value="Foundation">Foundation</option><option value="Intermediate">Intermediate</option><option value="Advanced">Advanced</option></select><button class="primary" onclick="randomQuestion()">Random Question</button></div><div id="questionBankList" style="margin-top:18px"></div></div>
+</section>
+<section id="flashcards" class="page">
+ <div class="hero"><div><span class="chip">FLASHCARDS</span><h1>Term VI Memory Deck</h1><p>Use active recall for formulas, frameworks, definitions and executive concepts.</p></div><div class="statbox"><div class="big" id="fcKnown">0</div><span>cards marked known</span></div></div>
+ <div class="section" id="flashcardGrid"></div>
+</section>
+<section id="aiTutor" class="page">
+ <div class="hero"><div><span class="chip">MBA TUTOR</span><h1>AI-style Executive Tutor</h1><p>Use guided prompts to practise explanation, Socratic questioning and case reasoning.</p></div></div>
+ <div class="section grid2"><div class="card"><h2>Choose a tutor mode</h2><div class="chips"><button class="chip" onclick="tutorPrompt('Explain this concept like a beginner')">Beginner</button><button class="chip" onclick="tutorPrompt('Challenge me with an executive question')">Executive challenge</button><button class="chip" onclick="tutorPrompt('Ask me Socratic questions about a case')">Socratic case</button><button class="chip" onclick="tutorPrompt('Test me with an IIM-style exam question')">Exam mode</button></div></div><div class="card"><h2>Prompt workspace</h2><textarea id="tutorInput" rows="7" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--text)" placeholder="Example: Explain DSCR and then challenge my understanding."></textarea><button class="primary" style="margin-top:10px" onclick="tutorRespond()">Generate study guidance</button><div id="tutorOutput" class="formula-box" style="margin-top:12px">Your guided study response will appear here.</div></div></div>
+</section>
+<section id="performance" class="page">
+ <div class="hero"><div><span class="chip">MY PERFORMANCE</span><h1>Executive Learning Analytics</h1><p>Track mastery, practice volume and where your revision time should go next.</p></div><div class="statbox"><div class="big" id="perfReadiness">0%</div><span>overall readiness</span></div></div>
+ <div class="section grid3" id="performanceGrid"></div>
+ <div class="section card"><h2>Priority revision queue</h2><div id="revisionQueue"></div></div>
+</section>
+<section id="workplace" class="page">
+ <div class="hero"><div><span class="chip">EXECUTIVE APPLICATION</span><h1>Apply MBA Thinking to Your Workplace</h1><p>Convert every academic concept into a practical leadership reflection.</p></div></div>
+ <div class="section grid2" id="workplaceGrid"></div>
+</section>
+<section id="exam" class="page">
+ <div class="hero"><div><span class="chip">Exam Command Center</span><h1>Exam Preparation Center</h1><p>Use 30, 60 or 90 minutes to simulate the pressure of the real exam.</p></div><div class="statbox"><div class="timer" id="clock">30:00</div><button class="primary" onclick="startTimer(30)">Start 30-min mode</button></div></div>
+ <div class="section grid3">
+  <div class="card"><h3>30-minute sprint</h3><p class="muted">10 MCQs + 2 short answers + 1 framework.</p><button class="primary" onclick="startTimer(30)">Start</button></div>
+  <div class="card"><h3>60-minute mock</h3><p class="muted">Mixed questions across all four subjects.</p><button class="primary" onclick="startTimer(60)">Start</button></div>
+  <div class="card"><h3>90-minute deep mock</h3><p class="muted">Case + quantitative + strategic reasoning.</p><button class="primary" onclick="startTimer(90)">Start</button></div>
+ </div>
+ <div class="section grid2"><div class="card"><h2>Last-day revision</h2><div class="chips"><span class="chip">Frameworks</span><span class="chip">Formula sheet</span><span class="chip">Top 20 questions</span><span class="chip">Case patterns</span><span class="chip">Common mistakes</span></div></div>
+ <div class="card"><h2>Exam answer structure</h2><ol><li>Define the issue.</li><li>State the relevant framework.</li><li>Apply facts/data.</li><li>Compare alternatives.</li><li>Conclude with an executive recommendation and risks.</li></ol></div></div>
+ <div class="section card"><h2>Important exam-style questions</h2><div id="examQuestions"></div></div>
+</section>
+
+<section id="frameworks" class="page">
+ <div class="hero"><div><span class="chip">Executive Toolkit</span><h1>Framework Library</h1><p>A compact mental model library for case analysis, executive discussion and exam answers.</p></div></div>
+ <div class="section grid3" id="frameworkGrid"></div>
+</section>
+
+<section id="resources" class="page">
+ <div class="hero"><div><span class="chip">Curated Learning</span><h1>External Learning Resources</h1><p>Selected academic and practitioner resources. External links open in a new tab.</p></div></div>
+ <div class="section grid2" id="resourceGrid"></div>
+</section>
+</div></main></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const subjects={
+change:{name:"Management of Change & Transformation",topics:[
+["Change fundamentals","Why organizations change; planned vs emergent change; transformation vs change; change readiness."],
+["Change diagnosis","Stakeholder mapping; force-field analysis; readiness; cultural diagnosis; resistance sources."],
+["Change models","Kotter 8 Steps; Lewin; ADKAR; McKinsey 7-S; change curve."],
+["Leadership & communication","Vision; sponsorship; coalition building; communication strategy; role modelling."],
+["Culture & resistance","Culture as system; psychological safety; incentives; informal networks; resistance management."],
+["Transformation execution","Transformation office; governance; capability building; metrics; adoption; benefits realization."],
+["Sustaining change","Embedding new behaviours; reinforcement; continuous improvement; learning loops."]
+]},
+innovation:{name:"Technology Innovation & Strategy",topics:[
+["Technology strategy foundations","Technology-business alignment; value creation; competitive advantage; strategic fit."],
+["Innovation economics","S-curves; diffusion; adoption; network effects; learning curves; economies of scale."],
+["Disruptive innovation","Disruption logic; sustaining vs disruptive innovation; incumbent response."],
+["Platform & ecosystem strategy","Platforms; complements; multi-sided markets; APIs; ecosystem governance."],
+["Business model innovation","Value proposition; value architecture; monetization; unit economics."],
+["Innovation portfolio","Core/adjacent/transformational innovation; real options; resource allocation."],
+["Technology roadmapping","Build/buy/partner; capability roadmaps; standards; technology timing; risk."]
+]},
+ma:{name:"Merger & Acquisition Strategy",topics:[
+["M&A strategy","Strategic rationale; market entry; capability acquisition; consolidation; portfolio logic."],
+["Target screening","Strategic fit; market attractiveness; capabilities; deal thesis; red flags."],
+["Valuation","DCF; trading multiples; precedent transactions; control premium; synergy value."],
+["Due diligence","Commercial; financial; tax; legal; technology; people; culture; operational diligence."],
+["Deal structure","Cash vs stock; earn-outs; financing; purchase price; governance; conditions."],
+["Synergy & value creation","Cost synergies; revenue synergies; dis-synergies; synergy ownership; tracking."],
+["Integration","Day 1; IMO; operating model; culture; talent; technology; 100-day plan."]
+]},
+finance:{name:"Structured & Project Finance",topics:[
+["Time value of money","PV; FV; annuities; perpetuities; discounting; compounding."],
+["Investment appraisal","NPV; IRR; payback; profitability index; mutually exclusive projects."],
+["Risk & return","Systematic risk; beta; CAPM; risk-adjusted discount rates."],
+["WACC & capital structure","Cost of debt; cost of equity; capital weights; leverage; optimal structure."],
+["Project finance architecture","SPV; sponsors; lenders; EPC; O&M; offtake; concession; security package."],
+["Cash-flow modelling","Revenue; OPEX; taxes; capex; working capital; CFADS; debt service."],
+["Debt sizing & DSCR","Debt sculpting; DSCR; LLCR; reserve accounts; covenants."],
+["Risk allocation","Construction; demand; FX; interest rate; political; force majeure; termination."],
+["Sensitivity & scenarios","Base/upside/downside; break-even; tornado logic; stress testing."]
+]}};
+const cases={
+change:[
+["Microsoft transformation","How culture, leadership and strategy can reinforce one another during large-scale transformation.","Use Kotter + McKinsey 7-S; identify leadership behaviours and adoption metrics."],
+["Unilever change programme","A global consumer business must align structure, processes and culture while protecting performance.","Map stakeholders, resistance, communication and benefits realization."],
+["Indian telecom digital transformation","A telecom operator shifts from network-centric execution toward digital customer journeys.","Diagnose current state, define transformation north star and governance."]
+],
+innovation:[
+["Netflix vs incumbents","Technology and business-model choices changed the basis of competition in video entertainment.","Analyse S-curve, disruption, capabilities and business-model economics."],
+["Apple ecosystem","Hardware, software and services reinforce one another through an integrated ecosystem.","Use platform/ecosystem lens and identify switching costs and complements."],
+["Indian fintech platform","A digital platform expands from payments into adjacent financial services.","Analyse network effects, regulation, monetization and ecosystem strategy."]
+],
+ma:[
+["Disney–Pixar","Assess strategic rationale, capability combination and cultural integration.","Separate deal thesis, valuation logic, synergies and integration risks."],
+["Microsoft–LinkedIn","Analyse strategic fit, ecosystem effects and integration choices.","Build a value tree and distinguish revenue, cost and strategic synergies."],
+["Indian consolidation case","A large enterprise acquires a specialist technology company to accelerate capabilities.","Design due diligence, valuation questions and a 100-day integration plan."]
+],
+finance:[
+["Renewable energy SPV","A greenfield project needs debt and equity based on long-term contracted cash flows.","Build project cash flow, DSCR and downside scenario."],
+["Airport / highway PPP","A concession structure must balance capex, demand risk, debt service and sponsor returns.","Map risks to counterparties and assess financing structure."],
+["Data-center project","A hyperscale facility requires large upfront capex and predictable contracted revenues.","Model NPV, debt capacity, DSCR and sensitivity to utilization."]
+]};
+const questions={
+change:[
+["What is the difference between change management and transformation?","Change management focuses on adoption of a defined change; transformation typically reshapes strategy, operating model, capabilities and often culture."],
+["How would you diagnose resistance to a transformation?","Segment stakeholders, identify rational and emotional sources, assess incentives/capabilities, and test whether resistance is caused by unclear value, low trust or execution constraints."],
+["Apply Kotter to an ERP transformation.","Create urgency, build coalition, define vision, enlist people, remove barriers, create short-term wins, sustain acceleration and institutionalize the new ways of working."]
+],
+innovation:[
+["What makes a technology strategically important?","Its ability to alter customer value, cost structure, competitive dynamics, capabilities or the timing of strategic options—not merely its novelty."],
+["Explain the technology S-curve.","Performance often improves slowly initially, accelerates as knowledge accumulates, then approaches limits; a new technology can create a new curve."],
+["How should an incumbent respond to disruption?","Diagnose the threat, protect the core while experimenting with the new model, allocate resources explicitly and avoid assuming current economics will persist."]
+],
+ma:[
+["Why can a strategically attractive acquisition still destroy value?","The acquirer may overpay, overestimate synergies, underestimate integration costs, disrupt the core or fail to retain critical talent."],
+["What is the value of synergy?","Incremental value expected from combining firms, net of implementation costs and risks, beyond the standalone values of the two businesses."],
+["What belongs in M&A due diligence?","Commercial, financial, tax, legal, operational, technology, cyber, people, culture, ESG/regulatory and integration readiness."]
+],
+finance:[
+["What does NPV measure?","The present value of expected project cash inflows minus the present value of investment and other relevant cash outflows."],
+["Why is DSCR important?","It compares cash available for debt service with required debt service and indicates the project's debt-servicing cushion."],
+["What is the core distinction between corporate and project finance?","Corporate lenders primarily rely on the sponsor's balance sheet; project finance relies substantially on the project's own cash flows and contractual structure."]
+]};
+const frameworks=[
+["Kotter 8 Steps","Urgency → coalition → vision → enlist → enable → wins → accelerate → institute.","Change"],
+["McKinsey 7-S","Strategy, Structure, Systems, Shared Values, Skills, Style, Staff.","Change"],
+["ADKAR","Awareness → Desire → Knowledge → Ability → Reinforcement.","Change"],
+["Technology S-Curve","Performance evolves through emergence, acceleration and maturity; transitions create strategic windows.","Innovation"],
+["Disruption lens","Distinguish sustaining improvements from lower-end/new-market disruption and incumbent response.","Innovation"],
+["Platform flywheel","Users ↔ complements ↔ data/learning ↔ better value ↔ more users.","Innovation"],
+["M&A value tree","Standalone target value + credible synergies − premium − integration costs − risk.","M&A"],
+["M&A 100-day plan","Governance → people → customers → operations → technology → synergy tracking.","M&A"],
+["DCF valuation","Forecast free cash flow, select discount rate, calculate terminal value and discount to present.","M&A / Finance"],
+["Capital structure","Balance tax benefits, distress costs, flexibility, risk and cost of capital.","Finance"],
+["Project finance waterfall","Revenue → OPEX → taxes → CFADS → debt service → reserves → equity distributions.","Finance"],
+["DSCR","DSCR = CFADS / debt service. Higher coverage generally provides more debt-service cushion.","Finance"]
+];
+const resources=[
+["Kotter — 8 Steps for Leading Change","Change framework and practical methodology.","https://www.kotterinc.com/methodology/8-steps/","Change"],
+["MIT OpenCourseWare — Technology Strategy","Graduate course on technology strategy, competition, technological change and capabilities.","https://ocw.mit.edu/courses/15-912-technology-strategy-fall-2008/","Innovation"],
+["MIT OCW — Innovation Strategy Notes","Lecture notes on innovation strategy, environmental scanning and technology agenda.","https://ocw.mit.edu/courses/15-904-strategic-management-ii-fall-2005/resources/dmk_innovation/","Innovation"],
+["Damodaran — Corporate Finance","Open corporate finance material covering investment, financing, valuation and capital structure.","https://pages.stern.nyu.edu/~adamodar/New_Home_Page/CF.htm","Finance"],
+["Damodaran — Valuation","Valuation resources including acquisition analysis, synergy and LBO materials.","https://pages.stern.nyu.edu/~adamodar/New_Home_Page/valuation/val.htm","M&A / Finance"],
+["Damodaran — Problems & Solutions","Practice problems for DCF, relative valuation, options and acquisitions.","https://pages.stern.nyu.edu/~adamodar/New_Home_Page/eqprob.html","Finance"],
+["McKinsey — M&A Integration","Research on tailoring integration to deal rationale, culture, size and complexity.","https://www.mckinsey.com/capabilities/people-and-organization/our-insights/tailoring-your-integration-approach-to-specific-deals","M&A"],
+["McKinsey — M&A Blueprint","Framework for strategic M&A themes, value creation and integration planning.","https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/a-blueprint-for-m-and-a-success","M&A"],
+["World Bank — Project Finance Concepts","Project finance structure, SPVs, contracts, cash flows and limited/non-recourse concepts.","https://ppp.worldbank.org/financing/project-finance-concepts","Finance"],
+["World Bank — Finance Structures for PPP","Debt/equity structures, SPVs, risk allocation and project-finance alternatives.","https://ppp.worldbank.org/finance-structures-ppp","Finance"]
+];
+
+let state=JSON.parse(localStorage.getItem('pgpwe6')||'{"done":[],"q":0,"cases":0,"problems":0}');
+function save(){localStorage.setItem('pgpwe6',JSON.stringify(state));updateStats()}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo(0,0)}
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+function toggleTheme(){document.body.dataset.theme=document.body.dataset.theme==='dark'?'':'dark';localStorage.setItem('theme',document.body.dataset.theme)}
+if(localStorage.getItem('theme'))document.body.dataset.theme=localStorage.getItem('theme');
+function pctFor(s){return Math.round(state.done.filter(x=>x.startsWith(s+':')).length/subjects[s].topics.length*100)}
+function updateStats(){
+ let total=Object.keys(subjects).reduce((a,s)=>a+subjects[s].topics.length,0), done=state.done.length, pct=Math.round(done/total*100);
+ document.getElementById('overall').textContent=pct+'%';document.getElementById('overallbar').style.width=pct+'%';
+ document.getElementById('mTopics').textContent=done;document.getElementById('mCases').textContent=state.cases;document.getElementById('mQ').textContent=state.q;document.getElementById('mP').textContent=state.problems;
+ Object.keys(subjects).forEach(s=>{let p=pctFor(s);let el=document.getElementById('bar-'+s);if(el)el.style.width=p+'%';let pe=document.getElementById(s+'Pct');if(pe)pe.textContent=p+'%'});
+ renderContinue()
+}
+function renderContinue(){let box=document.getElementById('continueList');let items=Object.keys(subjects).map(s=>({s,p:pctFor(s)})).sort((a,b)=>a.p-b.p).slice(0,3);box.innerHTML=items.map(x=>`<div style="margin:12px 0"><b>${subjects[x.s].name}</b><div class="bar"><i style="width:${x.p}%"></i></div><small class="muted">${x.p}% complete · <button class="ghost" onclick="showPage('${x.s}')">Continue</button></small></div>`).join('')}
+function topicHTML(s){
+ return `<div class="card"><h2>Topic roadmap</h2><p class="muted">Progress from foundation to executive application. Tick a topic when you can explain it without notes.</p>${subjects[s].topics.map((t,i)=>{let key=s+':'+i;return `<div class="topic"><button onclick="this.parentElement.classList.toggle('open')"><span><input type="checkbox" ${state.done.includes(key)?'checked':''} onclick="event.stopPropagation();toggleTopic('${key}')"> <b>${i+1}. ${t[0]}</b></span><span>+</span></button><div class="body"><p>${t[1]}</p><div class="chips"><span class="chip">${i<2?'Beginner':i<5?'Intermediate':'Advanced'}</span><span class="chip">Learning objective</span></div><p><b>Remember this:</b> Be able to explain the concept, apply it to a case, and state one executive implication.</p></div></div>`}).join('')}</div>`;
+}
+function conceptHTML(s){
+ const c={
+ change:[["Change vs transformation","Transformation changes the system of value creation: strategy, operating model, capabilities and behaviours—not just a process."],["Force-field analysis","List forces driving and restraining change; use it to identify levers rather than treating resistance as a personality problem."],["Change saturation","Multiple initiatives compete for the same attention and capability. Sequence changes and protect critical capacity."],["Transformation office","A cross-functional mechanism that coordinates value streams, dependencies, decisions, risks and benefits realization."]],
+ innovation:[["Technology strategy","Technology choices should answer how the firm will create, deliver and capture value, and how capabilities affect competitive position."],["Network effects","A product becomes more valuable as participation grows; distinguish direct, indirect and cross-side effects."],["Real options","Small experiments can preserve the right—but not obligation—to scale when uncertainty resolves."],["Build / buy / partner","Choose based on strategic importance, capability gap, speed, economics, control and ecosystem position."]],
+ ma:[["Deal thesis","A concise causal statement linking the target to strategy and a specific value-creation mechanism."],["Control premium","Additional price paid for control; it should be justified by value the acquirer can actually create."],["Synergy","Incremental value from combination, net of implementation costs and risk; separate cost, revenue and strategic synergies."],["Integration Management Office","The governance engine coordinating workstreams, decisions, dependencies, milestones and synergy tracking."]],
+ finance:[["NPV","NPV = Σ CFt/(1+r)^t − initial investment. It measures value created in present-value terms."],["IRR","The discount rate that makes NPV equal to zero. Use with care when cash flows are non-conventional or projects are mutually exclusive."],["WACC","WACC = E/V·Ke + D/V·Kd·(1−T), under standard assumptions."],["DSCR","DSCR = CFADS / debt service. It is a central project-finance debt-service coverage measure."]]
+ }[s];
+ return `<div class="grid2">${c.map(x=>`<div class="card"><h3>${x[0]}</h3><p class="muted">${x[1]}</p><div class="chips"><span class="chip">Executive lens</span><span class="chip">Exam-ready</span></div></div>`).join('')}</div>`
+}
+function caseHTML(s){
+ return `<div class="grid2">${cases[s].map((c,i)=>`<div class="card"><span class="chip">Case ${i+1}</span><h3>${c[0]}</h3><p>${c[1]}</p><details><summary>Analysis guide</summary><p class="muted">${c[2]}</p><ul><li>State the decision to be made.</li><li>Identify 3–5 critical facts.</li><li>Apply one primary and one supporting framework.</li><li>Quantify where data permits.</li><li>Close with trade-offs, risks and next steps.</li></ul></details><button class="ghost" onclick="markCase()">Mark case complete</button></div>`).join('')}</div>`
+}
+function practiceHTML(s){
+ return `<div class="card"><h2>Practice zone</h2><p class="muted">Attempt first. Reveal only after writing your own answer.</p>${questions[s].map((q,i)=>`<div class="question"><b>Q${i+1}. ${q[0]}</b><div style="margin-top:10px"><button class="ghost" onclick="attempt(this)">Attempted</button> <button class="ghost" onclick="this.parentElement.nextElementSibling.classList.toggle('show')">Show / Hide Answer</button></div><div class="answer">${q[1]}</div></div>`).join('')}</div>`
+}
+function subjectTab(s,tab,btn){
+ document.querySelectorAll('#'+s+' .subjecttab').forEach(x=>x.style.display='none');document.getElementById(s+'-'+tab).style.display='block';
+ btn.parentElement.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active')
+}
+function toggleTopic(k){if(state.done.includes(k))state.done=state.done.filter(x=>x!==k);else state.done.push(k);save();renderSubjectPages()}
+function markCase(){state.cases++;save();toast('Case marked complete')}
+function attempt(btn){if(!btn.dataset.done){btn.dataset.done='1';state.q++;save();btn.textContent='Attempted ✓'}}
+let currentDetailSubject=null;function openSubjectDetail(s){currentDetailSubject=s;showPage('subjectDetail');document.getElementById('detailTag').textContent=String(Object.keys(subjects).indexOf(s)+1).padStart(2,'0')+' · TERM VI';document.getElementById('detailTitle').textContent=subjects[s].name;document.getElementById('detailIntro').textContent='Detailed subject workspace covering syllabus, topics, questions, answers, cases and rapid revision.';renderSubjectDetail(s);document.querySelectorAll('#detailTabs .tab').forEach((b,i)=>b.classList.toggle('active',i===0));document.querySelectorAll('.detailtab').forEach((x,i)=>x.style.display=i===0?'block':'none')}function detailTab(tab,btn){document.querySelectorAll('.detailtab').forEach(x=>x.style.display='none');document.getElementById('detail-'+tab).style.display='block';document.querySelectorAll('#detailTabs .tab').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}function toggleDetailTopic(key){if(state.done.includes(key))state.done=state.done.filter(x=>x!==key);else state.done.push(key);save();if(currentDetailSubject)renderSubjectDetail(currentDetailSubject)}function countQuestion(btn){if(btn.dataset.counted)return;btn.dataset.counted='1';state.q++;save();btn.textContent='Answer opened ✓'}function renderSubjectDetail(s){let p=pctFor(s);document.getElementById('detailProgress').textContent=p+'%';document.getElementById('detailProgressBar').style.width=p+'%';document.getElementById('detail-syllabus').innerHTML='<div class="card"><div class="sectionhead"><div><h2>Complete syllabus</h2><p class="muted">Modules → topics → learning objectives → progression.</p></div><span class="chip">'+subjects[s].topics.length+' topics</span></div>'+subjects[s].topics.map((t,i)=>{let key=s+':'+i,done=state.done.includes(key);return '<div class="detail-topic"><div class="detail-topic-head"><div class="num">'+String(i+1).padStart(2,'0')+'</div><div style="flex:1"><h3>'+t[0]+'</h3><span class="muted">'+(i<2?'Foundation':i<5?'Intermediate':'Advanced')+'</span></div><label class="chip"><input type="checkbox" '+(done?'checked':'')+' onchange="toggleDetailTopic(\''+key+'\')"> Complete</label></div><div class="detail-topic-body"><p><b>Topic scope:</b> '+t[1]+'</p><p><b>Learning objective:</b> Explain the concept, apply an appropriate framework, analyse a case, and articulate executive implications.</p><div class="chips"><span class="chip">Concept</span><span class="chip">Case analysis</span><span class="chip">Exam question</span></div></div></div>'}).join('')+'</div>';let conceptData={change:[['Change fundamentals','Change is the managed movement from a current state to a desired future state. Transformation is broader: it changes strategy, operating model, capabilities and behaviours.'],['Change diagnosis','Diagnose stakeholder impact, readiness, resistance, capability gaps, incentives and cultural context before selecting interventions.'],['Kotter 8-Step Model','Create urgency, build a guiding coalition, form a vision, enlist people, remove barriers, create wins, sustain acceleration and institutionalize change.'],['McKinsey 7-S','Analyse Strategy, Structure, Systems, Shared Values, Skills, Style and Staff as an interconnected system.']],innovation:[['Technology strategy','Technology creates strategic value when it changes customer value, cost economics, capabilities or competitive dynamics.'],['S-Curve','Technology performance often starts slowly, accelerates with learning, and approaches a limit; new technologies can begin a new curve.'],['Disruptive innovation','Analyse the basis of competition, target segment, economics and incumbent response—not simply whether a technology is new.'],['Platform & ecosystem','Platforms create value through interactions, complements, standards, APIs and network effects.']],ma:[['Deal thesis','A deal thesis explains why the target matters, what capability or market position it adds, and how value will be created.'],['Valuation','Use DCF, trading comparables, precedent transactions and scenarios; test assumptions rather than relying on one method.'],['Synergy analysis','Separate cost, revenue and strategic synergies; estimate timing, one-time costs, probability and ownership.'],['Due diligence','Test commercial, financial, tax, legal, operational, technology, cyber, people and cultural assumptions.']],finance:[['Time value of money','A rupee today is worth more than a rupee later because it can earn a return and future cash flows carry uncertainty.'],['NPV','NPV discounts expected project cash flows at an appropriate rate and subtracts the initial investment.'],['IRR','IRR is the discount rate at which NPV equals zero. Use carefully for non-conventional or mutually exclusive projects.'],['WACC','WACC blends the cost of equity and after-tax cost of debt using market-value weights under standard assumptions.']]}[s];document.getElementById('detail-topics').innerHTML='<div class="grid2">'+conceptData.map((c,i)=>'<div class="card"><span class="chip">Topic '+(i+1)+'</span><h3>'+c[0]+'</h3><p class="muted">'+c[1]+'</p><div class="formula-box"><b>Remember:</b> Define it → explain why it matters → apply it → state one limitation.</div></div>').join('')+'</div>';document.getElementById('detail-questions').innerHTML='<div class="card"><h2>Questions & Answers</h2><p class="muted">Attempt each question before revealing the model answer.</p>'+questions[s].map((q,i)=>'<div class="qa-card"><div class="q">Q'+(i+1)+'. '+q[0]+'</div><div class="answer-toggle"><button class="ghost" onclick="countQuestion(this);this.parentElement.nextElementSibling.classList.toggle(\'show\')">Attempt / Show Answer</button></div><div class="answer"><b>Model answer:</b><br>'+q[1]+'</div></div>').join('')+'</div>';document.getElementById('detail-cases').innerHTML='<div class="grid2">'+cases[s].map((c,i)=>'<div class="case-detail"><span class="chip">Case '+(i+1)+'</span><h2>'+c[0]+'</h2><p>'+c[1]+'</p><details><summary>Open case analysis guide</summary><p class="muted">'+c[2]+'</p><ol><li>Define the central management problem.</li><li>Extract critical facts.</li><li>Apply the relevant framework.</li><li>Identify alternatives and trade-offs.</li><li>Conclude with an executive action plan.</li></ol></details><button class="ghost" onclick="markCase()">Mark case complete</button></div>').join('')+'</div>';let rev={change:['Kotter 8 Steps','McKinsey 7-S','ADKAR','Force-field analysis','Stakeholder mapping','Change readiness'],innovation:['Technology S-Curve','Disruption','Network effects','Platform strategy','Business-model innovation','Innovation portfolio'],ma:['Deal thesis','DCF','Trading multiples','Synergies','Due diligence','Deal structure','100-day integration'],finance:['TVM','NPV','IRR','WACC','CAPM','SPV','CFADS','DSCR','Debt sculpting','Sensitivity analysis']}[s];document.getElementById('detail-revision').innerHTML='<div class="card"><h2>Rapid Revision</h2><p class="muted">For 30-minute, 60-minute and last-day preparation.</p><div class="grid2">'+rev.map((r,i)=>'<div class="card" style="box-shadow:none"><span class="chip">'+(i+1)+'</span><h3>'+r+'</h3><p class="muted">Can you define it, apply it to a case, and explain one executive implication?</p></div>').join('')+'</div></div>'}
+function renderSubjectPages(){Object.keys(subjects).forEach(s=>{document.getElementById(s+'-syllabus').innerHTML=topicHTML(s);document.getElementById(s+'-concepts').innerHTML=conceptHTML(s);document.getElementById(s+'-cases').innerHTML=caseHTML(s);document.getElementById(s+'-practice').innerHTML=practiceHTML(s)});updateStats()}
+function renderFrameworks(){document.getElementById('frameworkGrid').innerHTML=frameworks.map(f=>`<div class="card"><span class="chip">${f[2]}</span><h3>${f[0]}</h3><p class="muted">${f[1]}</p><button class="ghost" onclick="toast('Saved to your revision list')">Bookmark</button></div>`).join('')}
+function renderResources(){document.getElementById('resourceGrid').innerHTML=resources.map(r=>`<div class="card resource"><div><span class="chip">${r[3]}</span><h3>${r[0]}</h3><p class="muted">${r[1]}</p></div><a href="${r[2]}" target="_blank" rel="noopener">Open ↗</a></div>`).join('')}
+function renderExam(){document.getElementById('examQuestions').innerHTML=[...questions.change,...questions.innovation,...questions.ma,...questions.finance].map((q,i)=>`<div class="question"><b>${i+1}. ${q[0]}</b><button class="ghost" onclick="this.nextElementSibling.classList.toggle('show')">Show answer</button><div class="answer">${q[1]}</div></div>`).join('')}
+let timer=null;
+function startTimer(min){clearInterval(timer);let sec=min*60;document.getElementById('clock').textContent=formatTime(sec);timer=setInterval(()=>{sec--;document.getElementById('clock').textContent=formatTime(sec);if(sec<=0){clearInterval(timer);toast('Time is up — review your answers.')}},1000);toast(min+'-minute mode started')}
+function formatTime(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function dailyChallenge(){let all=Object.values(questions).flat();let q=all[Math.floor(Math.random()*all.length)];alert('15-minute challenge\\n\\n'+q[0]+'\\n\\n1) Answer in 3 minutes.\\n2) Apply one framework.\\n3) Write one workplace implication.\\n\\nThen reveal the model answer:\\n'+q[1])}
+function toast(t){let x=document.getElementById('toast');x.textContent=t;x.style.display='block';setTimeout(()=>x.style.display='none',2200)}
+function resetProgress(){if(confirm('Reset all Term VI progress on this device?')){state={done:[],q:0,cases:0,problems:0};save();renderSubjectPages();toast('Progress reset')}}
+function globalSearch(){let q=document.getElementById('search').value.toLowerCase().trim();if(!q)return;let hits=[];Object.entries(subjects).forEach(([s,v])=>v.topics.forEach((t,i)=>{if((t[0]+' '+t[1]).toLowerCase().includes(q))hits.push([s,t[0],i])}));if(hits.length){showPage(hits[0][0]);document.querySelector('#'+hits[0][0]+'-syllabus').scrollIntoView({behavior:'smooth'})}else toast('No matching topic found')}
+
+const extraQuestions=[
+['change','Foundation','What is change saturation and why does it matter?','Change saturation occurs when too many initiatives compete for the same organisational attention and capability. Leaders should sequence change and protect critical capacity.'],
+['change','Intermediate','How would you build a change coalition for an ERP transformation?','Identify sponsors and influential stakeholders, align them around a measurable case for change, define decision rights, communicate the vision and create visible early wins.'],
+['innovation','Foundation','What is a technology S-curve?','It describes how technology performance often improves slowly, then rapidly, before approaching a maturity limit.'],
+['innovation','Advanced','Why can an incumbent miss a technology transition?','Its existing economics, customers, processes and incentives can make the new opportunity look unattractive until the market has shifted.'],
+['ma','Intermediate','What makes a good M&A deal thesis?','It links the target to strategy and specifies a credible value-creation mechanism that can be tested through diligence and valuation.'],
+['ma','Advanced','Why can synergies destroy value?','Synergies can be overstated, delayed, costly to implement or offset by customer loss, talent loss and integration disruption.'],
+['finance','Foundation','What is CFADS?','Cash Flow Available for Debt Service: cash generated by the project that is available to meet scheduled debt service.'],
+['finance','Advanced','Why is DSCR important to lenders?','It measures the cushion between project cash available for debt service and the required debt payment.']
+];
+const allQuestions=()=>Object.entries(questions).flatMap(([s,qs])=>qs.map((q,i)=>({s,d:i<1?'Foundation':i===1?'Intermediate':'Advanced',q:q[0],a:q[1]}))).concat(extraQuestions.map(x=>({s:x[0],d:x[1],q:x[2],a:x[3]})));
+function calcNPV(){let c=[-Number(document.getElementById('fcf0').value||0),Number(document.getElementById('fcf1').value||0),Number(document.getElementById('fcf2').value||0),Number(document.getElementById('fcf3').value||0)],r=Number(document.getElementById('disc').value||0)/100;let npv=c.reduce((sum,v,i)=>sum+v/Math.pow(1+r,i),0);document.getElementById('npvResult').innerHTML='NPV = <b>'+npv.toFixed(2)+'</b><br><small>Discount rate: '+(r*100).toFixed(2)+'%</small>';state.problems++;save()}
+function calcDSCR(){let c=Number(document.getElementById('cfads').value||0),d=Number(document.getElementById('debtservice').value||0),t=Number(document.getElementById('targetdscr').value||0),x=d?c/d:0;document.getElementById('dscrResult').innerHTML='DSCR = <b>'+x.toFixed(2)+'x</b><br><small>Target: '+t.toFixed(2)+'x · '+(x>=t?'above':'below')+' target</small>';state.problems++;save()}
+function calcWACC(){let e=Number(document.getElementById('eq').value||0)/100,d=Number(document.getElementById('debt').value||0)/100,ke=Number(document.getElementById('ke').value||0)/100,kd=Number(document.getElementById('kd').value||0)/100,t=Number(document.getElementById('tax').value||0)/100,w=e*ke+d*kd*(1-t);document.getElementById('waccResult').innerHTML='WACC = <b>'+(w*100).toFixed(2)+'%</b><br><small>Check that equity + debt weights are consistent.</small>';state.problems++;save()}
+function renderQuestionBank(){let s=document.getElementById('qbSubject').value,d=document.getElementById('qbDifficulty').value;let arr=allQuestions().filter(x=>(s==='all'||x.s===s)&&(d==='all'||x.d===d));document.getElementById('bankCount').textContent=arr.length;document.getElementById('questionBankList').innerHTML=arr.map((x,i)=>'<div class="question"><span class="chip">'+subjects[x.s].name+' · '+x.d+'</span><p><b>Q'+(i+1)+'. '+x.q+'</b></p><button class="ghost" onclick="countQuestion(this);this.nextElementSibling.classList.toggle(\'show\')">Attempt / Show Answer</button><div class="answer">'+x.a+'</div></div>').join('')}
+function randomQuestion(){let a=allQuestions(),x=a[Math.floor(Math.random()*a.length)];document.getElementById('qbSubject').value='all';document.getElementById('qbDifficulty').value='all';renderQuestionBank();toast('Random question: '+x.q)}
+const flashData=[['Kotter 8 Steps','Urgency → coalition → vision → enlist → enable → wins → accelerate → institute.'],['ADKAR','Awareness → Desire → Knowledge → Ability → Reinforcement.'],['Technology S-Curve','Slow emergence → rapid improvement → maturity; transitions create strategic windows.'],['Network effects','Product value increases as participation or complementary participation grows.'],['Deal thesis','A causal statement connecting acquisition rationale to measurable value creation.'],['Synergy','Incremental value from combining firms, net of implementation costs and risk.'],['NPV','Present value of future cash flows minus investment; primary value-creation measure.'],['WACC','Weighted average of cost of equity and after-tax cost of debt.'],['DSCR','CFADS divided by debt service.'],['CFADS','Cash flow available for scheduled project debt service.'],['SPV','A ring-fenced project company used to hold assets, contracts and financing.'],['Disruption','A change in basis of competition that can weaken an incumbent’s position.']];
+function renderFlashcards(){document.getElementById('fcKnown').textContent=state.fcKnown||0;document.getElementById('flashcardGrid').innerHTML='<div class="grid3">'+flashData.map((f,i)=>'<div class="flashcard" onclick="this.classList.toggle(\'flipped\')"><div class="flash-inner"><div class="flash-front"><span class="chip">Card '+(i+1)+'</span><h2>'+f[0]+'</h2><p class="muted">Tap to reveal</p></div><div class="flash-back"><span class="chip">Answer</span><p>'+f[1]+'</p><button class="ghost" onclick="event.stopPropagation();markKnown()">✓ I know this</button></div></div></div>').join('')+'</div>'}
+function markKnown(){state.fcKnown=(state.fcKnown||0)+1;save();renderFlashcards();toast('Card marked known')}
+function renderCaseLab(){document.getElementById('caseScore').textContent=state.cases;document.getElementById('caseLabGrid').innerHTML=Object.entries(cases).flatMap(([s,cs])=>cs.map((c,i)=>'<div class="card"><span class="chip">'+subjects[s].name+'</span><h2>'+c[0]+'</h2><p>'+c[1]+'</p><details><summary>Open executive analysis guide</summary><p class="muted">'+c[2]+'</p><h4>Use this structure</h4><ol><li>Situation and decision.</li><li>Facts and root cause.</li><li>Framework and alternatives.</li><li>Quantitative evidence.</li><li>Recommendation, risks and implementation.</li></ol></details><button class="primary" onclick="markCase();renderCaseLab()">Complete case</button></div>')).join('')}
+function renderPerformance(){let total=Object.keys(subjects).reduce((a,s)=>a+subjects[s].topics.length,0),p=Math.round(state.done.length/total*100),practice=state.q+state.problems;document.getElementById('perfReadiness').textContent=Math.min(100,Math.round(p*.65+Math.min(100,practice*3)*.35))+'%';document.getElementById('performanceGrid').innerHTML=Object.keys(subjects).map(s=>'<div class="card"><span class="chip">'+subjects[s].name+'</span><h3>'+pctFor(s)+'% mastered</h3><div class="bar"><i style="width:'+pctFor(s)+'%"></i></div><p class="muted">'+subjects[s].topics.length+' syllabus topics · '+state.done.filter(x=>x.startsWith(s+':')).length+' completed</p></div>').join('')+'<div class="card"><span class="chip">PRACTICE</span><h3>'+state.q+' questions</h3><p class="muted">'+state.problems+' finance calculations completed.</p></div>';let weak=Object.keys(subjects).sort((a,b)=>pctFor(a)-pctFor(b));document.getElementById('revisionQueue').innerHTML=weak.map(s=>'<div style="margin:12px 0"><b>'+subjects[s].name+'</b><span class="muted"> · '+pctFor(s)+'% complete</span><div class="bar"><i style="width:'+pctFor(s)+'%"></i></div></div>').join('')}
+function renderWorkplace(){let prompts=[['Change & Transformation','Identify one active change in your organisation. Which stakeholder is least aligned, and which Kotter/ADKAR intervention would you test?'],['Technology Innovation','Which technology trend could change your team’s economics or customer experience? What small experiment would reduce uncertainty?'],['M&A Strategy','If your organisation acquired a specialist technology firm, what would be the deal thesis, top synergy and biggest integration risk?'],['Project Finance','Choose a large technology or infrastructure project. Which risks should sit with the sponsor, lender, EPC contractor and customer?']];document.getElementById('workplaceGrid').innerHTML=prompts.map(x=>'<div class="card"><span class="chip">EXECUTIVE REFLECTION</span><h2>'+x[0]+'</h2><p>'+x[1]+'</p><textarea rows="5" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--text)" placeholder="Write your reflection..."></textarea></div>').join('')}
+function tutorPrompt(x){document.getElementById('tutorInput').value=x+' For Term VI, use an executive MBA level of difficulty.';tutorRespond()}
+function tutorRespond(){let v=document.getElementById('tutorInput').value.trim();if(!v){toast('Enter a study prompt first');return}document.getElementById('tutorOutput').innerHTML='<b>Study guidance</b><br><br>1. Define the concept in one sentence.<br>2. Identify the management decision behind it.<br>3. Select one framework and apply it.<br>4. Give one business example.<br>5. State one limitation or trade-off.<br><br><b>Your prompt:</b> '+v+'<br><br><span class="muted">Use this structure as your response scaffold; then compare your answer with the relevant concept and case material in the hub.</span>'}
+function updateWeakAreas(){let weak=Object.keys(subjects).sort((a,b)=>pctFor(a)-pctFor(b)).slice(0,2);document.getElementById('weakAreas').textContent=weak.map(s=>subjects[s].name+' ('+pctFor(s)+'%)').join(' · ')}
+// Extend existing updateStats without replacing its core logic.
+const _oldUpdateStats=updateStats; updateStats=function(){_oldUpdateStats();updateWeakAreas();if(currentDetailSubject)renderSubjectDetail(currentDetailSubject);if(document.getElementById('performanceGrid'))renderPerformance();if(document.getElementById('caseScore'))renderCaseLab();if(document.getElementById('fcKnown'))renderFlashcards()};
+renderQuestionBank();renderFlashcards();renderCaseLab();renderPerformance();renderWorkplace();updateWeakAreas();
+
+renderSubjectPages();renderFrameworks();renderResources();renderExam();updateStats();
+</script>
+</body>
+</html>
